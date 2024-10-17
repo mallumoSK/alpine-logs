@@ -42,7 +42,7 @@ If sample service has 2 outputs
 - /var/log/sample.log
 - /var/log/sample.err
   
-These 2 services will join files 'sample.log' and 'sample.err' into one output
+These 2 logs will join files 'sample.log' and 'sample.err' into one output
 
 ```shell
 logs --watcher-service sample \ 
