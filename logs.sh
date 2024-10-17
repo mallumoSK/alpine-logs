@@ -1,50 +1,70 @@
 #!/bin/sh
 
 printInfo(){
-	echo "Custom logger, which read from one or more inputs into on file"
-	echo "Be careful => input file will we wiped"
-	echo ""
-	echo "Logic: "
-	echo "1. read line from input file"
-	echo "2. delete line from input file"
-	echo "3. write line to output file"
-	echo "4. delete overflow lines from output file"
-	echo ""
-	echo ""
-	echo "Required WATCHER arguments: --watcher, -i"
-	echo "Required READER arguments: --reader"
-	echo ""
-	echo "  -w, --watcher  work mode as watcher\n\t\t etc. --watcher alias-name"
-	echo "  -r, --reader reader mode as reader\n\t\t etc. --reader alias-name"
-	echo "  -i, --input  path to input file"
-	echo "  -p, --prefix line prefix for output file\n\t\tetc. I (info), E (error) ..., default 'I'"
-	echo "  -l, --lines  how many lines are cached\n\t\tdefault 1000"
-	echo "  -s, --stream stream mode for reader"
-	echo ""
-	echo "  -ws, --watcher-service \t create setvice, whitch will be run in background"
-	echo ""
-	echo "example WATCHER:"
-	echo "logs.sh --watcher sample -i /var/log/server.log"
-	echo ""
-	echo "example READER:"
-	echo "logs.sh --reader sample"
-	echo "or"
-	echo "logs.sh --reader sample --stream"
-	echo ""
-	echo "Watcher service:"
-	echo ""
-	echo "logs.sh --watcher-service sample-log \ "
-	echo " -i /tmp/___/sample.log \ "
-	echo " -p \"I\" \ "
-	echo " -l 1000 "
-	echo ""
-	echo "logs.sh --watcher-service sample-err \ "
-	echo " -i /tmp/___/sample.err \ "
-	echo " -p \"E\" \ "
-	echo " -l 1000 "
-	echo ""
-	echo "These 2 services will join files 'sample.log' and 'sample.err' into one output"
-	echo ""
+echo "
+# Custom logger, which read from one or more inputs into on file
+- Be careful => input file will we wiped
+
+# INSTALL
+wget https://raw.githubusercontent.com/mallumoSK/alpine-logs/refs/heads/main/logs.sh -o /usr/bin/logs && chmod +x /usr/bin/logs
+/usr/bin/logs
+
+## Logic:
+1. read line from input file
+2. delete line from input file
+3. write line to output file
+4. delete overflow lines from output file
+
+# ARGS:
+## Required WATCHER arguments: --watcher, -i
+## Required READER arguments: --reader
+
+-  -w, --watcher  work mode as watcher, etc. --watcher alias-name
+-  -r, --reader reader mode as reader, etc. --reader alias-name
+-  -i, --input  path to input file
+-  -p, --prefix line prefix for output file, etc. I (info), E (error) ..., default 'I'
+-  -l, --lines  how many lines are cached, default 1000
+-  -s, --stream stream mode for reader
+
+-  -ws, --watcher-service 	 create setvice, whitch will be run in background
+
+# Example
+## WATCHER:
+
+logs --watcher sample -i /var/log/server.log
+
+## READER:
+
+logs --reader sample
+#or
+logs --reader sample --stream
+
+
+## Watcher service:
+If sample service has 2 outputs
+- /var/log/sample.log
+- /var/log/sample.err
+
+These 2 logs will join files 'sample.log' and 'sample.err' into one output
+
+logs --watcher-service sample \
+ -i /var/log/sample.log \
+ -p \"I\" \
+ -l 1000
+
+logs --watcher-service sample \
+ -i /var/log/sample.err \
+ -p \"E\" \
+ -l 1000
+
+# SEE LOGS
+logs -r sample
+
+# SEE LOGS LIVE
+logs -r sample --stream
+
+
+"
 }
 
 FPREFIX="I"
@@ -281,3 +301,4 @@ mainFun(){
 }
 
 mainFun
+
