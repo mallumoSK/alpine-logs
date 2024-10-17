@@ -3,7 +3,7 @@
 
 ## INSTALL
 ```shell
-wget https://raw.githubusercontent.com/mallumoSK/alpine-logs/refs/heads/main/logs.sh -o /usr/bin/logs && chmod +x /usr/bin/logs
+wget https://raw.githubusercontent.com/mallumoSK/alpine-logs/refs/heads/main/logs.sh -O /usr/bin/logs && chmod +x /usr/bin/logs
 /usr/bin/logs
 ```
 ## Logic: 
